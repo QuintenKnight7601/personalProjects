@@ -113,32 +113,12 @@ bool sudoku::puzzIn ( ifstream& in, string filename )
 }
 
 
-bool sudoku::templateOut ( vector<int> out )
-{
-    if ( !out.empty ( ) )
-    {
-        out.clear ( );
-    }
-
-    out.resize ( int ( pow ( basePuzz.size, 2 ) ) );
-
-    return true;
-}
-
-
-bool sudoku::templateOut ( ofstream& out )
+bool sudoku::templateOut ( ostream& out )
 {
     //Defining variables
     int i = 0, j = 0, size = basePuzz.size;
 
-
-    if ( !out.is_open ( ) )
-    {
-        return false;
-    }
-
-    out.seekp ( ios::beg );
-
+    //for the size of the puzzle output the template
     for ( i = 0; i < size; ++i )
     {
         for ( j = 0; j < ( size - 1 ); ++j )
@@ -153,6 +133,19 @@ bool sudoku::templateOut ( ofstream& out )
 }
 
 
+bool sudoku::templateOut ( vector<int> out )
+{
+    if ( !out.empty ( ) )
+    {
+        out.clear ( );
+    }
+
+    out.resize ( int ( pow ( basePuzz.size, 2 ) ) );
+
+    return true;
+}
+
+
 bool sudoku::templateOut ( ofstream& out, string filename )
 {
     //Defining variables
@@ -160,6 +153,11 @@ bool sudoku::templateOut ( ofstream& out, string filename )
 
     if ( !out.is_open ( ) )
     {
+        if ( filename == "" )
+        {
+            return false;
+        }
+
         out.open ( filename, ios::out | ios::trunc );
 
         if ( !out.is_open ( ) )
@@ -177,7 +175,7 @@ bool sudoku::templateOut ( ofstream& out, string filename )
             out << "0 ";
         }
 
-        out << "0\n";
+        out << "0" << endl;
     }
 
     return true;

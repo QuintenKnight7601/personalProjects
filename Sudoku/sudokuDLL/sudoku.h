@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <iostream>
 #include <fstream>
 #include <cmath>
 
@@ -32,9 +33,9 @@ public:
     //Input/Output
     bool puzzIn ( vector<int> in );
     bool puzzIn ( ifstream& in, string filename = "" );
+    bool templateOut ( ostream& out );
     bool templateOut ( vector<int> out );
-    bool templateOut ( ofstream& out );
-    bool templateOut ( ofstream& out, string filename );
+    bool templateOut ( ofstream& out, string filename = "" );
 
 
 private:

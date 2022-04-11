@@ -50,6 +50,7 @@ void sudoku::clearPuzz ( puzzle& poss )
 bool sudoku::permute ( puzzle& temp, int pos )
 {
     //Defining variables
+    puzzle* tempptr = tailptr;
     int vectSize = int ( pow ( temp.size, 2 ) );
     int cellSize = int ( sqrt ( temp.size ) );
     int i = 0, x = pos % temp.size, y = pos / temp.size;
@@ -58,6 +59,28 @@ bool sudoku::permute ( puzzle& temp, int pos )
     //If at the end of the vector
     if ( pos == vectSize )
     {
+        if ( tempptr != nullptr )
+        {
+            //If the content already exists in the first puzzle return false
+            if ( tempptr->cont == temp.cont )
+            {
+                return false;
+            }
+
+            //Increment pointer
+            tempptr = tempptr->next;
+
+            //While not at tailptr
+            while ( tempptr != tailptr )
+            {
+                //If the content already exists in a puzzle return false
+                if ( tempptr->cont == temp.cont )
+                {
+                    return false;
+                }
+            }
+        }
+
         //Set puzzle and base number and return true
         temp.possNum = ++basePuzz.possNum;
         return true;

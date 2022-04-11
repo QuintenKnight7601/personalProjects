@@ -15,8 +15,15 @@ int sudoku::numPoss ( )
     int i = 0;
     puzzle* tempptr = tailptr;
 
+    //Increment first puzzle
+    if ( tempptr != nullptr )
+    {
+        tempptr = tempptr->next;
+        ++i;
+    }
+
     //While not at the last possibility
-    while ( tempptr != nullptr )
+    while ( tempptr != tailptr )
     {
         //Increment number and to next possibility
         tempptr = tempptr->next;
@@ -33,7 +40,8 @@ vector<vector<int>> sudoku::cont ( )
 {
     //Defining variables
     vector<vector<int>> contents;
-    puzzle* tempptr = nullptr;
+    vector<int> tempCont;
+    puzzle* tempptr = tailptr;
     int i, tempint;
     int size = basePuzz.size;
     int sizeCell = int ( sqrt ( basePuzz.size ) );
@@ -45,17 +53,38 @@ vector<vector<int>> sudoku::cont ( )
         return contents;
     }
 
-    //While not at the end of the list
-    while ( tempptr->next != tailptr )
+    //First puzzle contents
+    //Loop for entire vector
+    for ( i = 0; i < sizeVect; ++i )
     {
+        //Move the possible contents to the vector
+        tempint = tempptr->cont[( i / size )][( i % size )];
+
+        //Push contents to back of vector
+        tempCont.push_back ( tempint );
+    }
+
+    //Push vector to end of vector of vectors
+    contents.push_back ( tempCont );
+
+    //Increment pointer
+    tempptr = tempptr->next;
+
+    //While not at the end of the list
+    while ( tempptr != tailptr )
+    {
+        //Reset temporary vector
+        tempCont.clear ( );
+
         //Loop for the length of the vector
         for ( i = 0; i < sizeVect; ++i )
         {
             //Move the possible contents to the vector
             tempint = tempptr->cont[( i / size )][( i % size )];
 
-            contents[tempptr->possNum].push_back ( tempint );
+            tempCont.push_back ( tempint );
         }
+        contents.push_back ( tempCont );
 
         //Increment pointer
         tempptr = tempptr->next;
