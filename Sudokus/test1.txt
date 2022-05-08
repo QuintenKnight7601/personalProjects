@@ -1,5 +1,0 @@
-3 3
-//This is a comment
-4 1 x
-6 x 2
-5 x x
