@@ -38,11 +38,30 @@ bool availability::insert ( _time from, _time to )
 bool availability::remove ( int pos )
 {
     //Check if card exists
-    if ( cardList.size ( ) < ( pos + 1 ) )
+    if ( int(cardList.size ( )) < ( pos + 1 ) )
         return false;
 
     //Erase card
-    cardList.erase ( cardList.begin() + pos );
+    cardList.erase ( cardList.begin ( ) + pos );
+
+    return true;
+}
+
+bool availability::remove ( card del )
+{
+    //Defining variables
+    int i = 0;
+
+    //Check if card exists
+    if ( !contains ( del ) )
+        return false;
+
+    //Navigate to card
+    while ( !( cardList.at ( i ) == del ) )
+        ++i;
+
+    //Erase card
+    cardList.erase ( cardList.begin ( ) + i );
 
     return true;
 }
@@ -50,7 +69,7 @@ bool availability::remove ( int pos )
 bool availability::change ( int pos, _time from, _time to )
 {
     //Check if card exists
-    if ( cardList.size ( ) < ( pos + 1 ) )
+    if ( int (cardList.size ( )) < ( pos + 1 ) )
         return false;
 
     //If a time value is not set
@@ -64,4 +83,118 @@ bool availability::change ( int pos, _time from, _time to )
 
     return true;
 
+}
+
+void availability::clear ( )
+{
+    cardList.clear ( );
+}
+
+bool availability::optimize ( )
+{
+    cout << "Unfinished Function Used: availability::optimize" << endl;
+
+    return false;
+}
+
+bool availability::empty ( )
+{
+    if ( cardList.empty ( ) )
+        return true;
+    return false;
+}
+
+int availability::size ( )
+{
+    return int ( cardList.size ( ) );
+}
+
+bool availability::contains ( card value )
+{
+    //Defining variables
+    int i, size = int ( cardList.size ( ) );
+    card curCard;
+
+    for ( i = 0; i < size; ++i )
+    {
+        curCard = cardList.at ( i );
+        if ( curCard == value )
+            return true;
+    }
+
+    return false;
+}
+
+bool availability::print ( )
+{
+    //Defining variables
+    int i, size = int ( cardList.size ( ) );
+    card curCard;
+
+    for ( i = 0; i < size; ++i )
+    {
+        //Set current card
+        curCard = cardList.at ( i );
+        
+        //Set output formatting
+        cout << setprecision ( 2 ) << noshowpoint;
+
+        //Output card
+        cout << "from " << curCard.from.hour << ":" << curCard.from.minute 
+             << " " << curCard.from.day
+             << " to "  << curCard.to.hour   << ":" << curCard.to.minute 
+             << " " << curCard.to.day << "\n\n";
+    }
+
+    cout << endl;
+
+    return true;
+}
+
+bool availability::print ( ostream out )
+{
+    //Defining variables
+    int i, size = int ( cardList.size ( ) );
+    card curCard;
+
+    for ( i = 0; i < size; ++i )
+    {
+        //Set current card
+        curCard = cardList.at ( i );
+
+        //Set output formatting
+        out << setprecision ( 2 ) << noshowpoint;
+
+        //Output card
+        out << "from " << curCard.from.hour << ":" << curCard.from.minute
+            << " " << curCard.from.day
+            << " to " << curCard.to.hour << ":" << curCard.to.minute
+            << " " << curCard.to.day << "\n\n";
+    }
+
+    out << endl;
+
+    return true;
+}
+
+bool availability::card::operator== ( const card& rhs )
+{
+
+
+    if ( from == rhs.from )
+        if ( to == rhs.to )
+            return true;
+
+    return false;
+}
+
+bool _time::operator== ( const _time& rhs )
+{
+    
+    if ( day == rhs.day )
+        if ( hour == rhs.hour )
+            if ( minute == rhs.minute )
+                return true;
+
+    return false;
 }

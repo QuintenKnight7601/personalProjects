@@ -22,13 +22,25 @@ struct _time
     int hour = -1;
     int minute = -1;
     days day = EVERYDAY;
+
+    bool operator== ( const _time& rhs );
 };
+
 
 
 class availability
 {
 public:
+
+    struct card
+    {
+        _time from;
+        _time to;
+
+        bool operator== ( const card& rhs );
+    };
     
+
     //Con\Deconstructors
     availability ( );
     ~availability ( );
@@ -37,27 +49,26 @@ public:
     //Manipulation
     bool insert ( _time from, _time to );
     bool remove ( int pos );
+    bool remove ( card del );
     bool change ( int pos, _time from, _time to );
-    bool clear ( );
+    void clear ( );
     bool optimize ( );
 
 
     //Information
     bool empty ( );
-    bool size ( );
-    bool contains ( _time value );
+    int  size ( );
+    bool contains ( card value );
     bool print ( );
-    bool output ( ostream out );
+    bool print ( ostream out );
+
+
+    //Overloading
 
     
 
 
 private:
-    struct card
-    {
-        _time from;
-        _time to;
-    };
 
     vector <card> cardList;
 
