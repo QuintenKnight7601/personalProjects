@@ -140,10 +140,9 @@ bool availability::print ( )
         cout << setprecision ( 2 ) << noshowpoint;
 
         //Output card
-        cout << "from " << curCard.from.hour << ":" << curCard.from.minute 
-             << " " << curCard.from.day
+        cout << "from " << curCard.from.hour << ":" << curCard.from.minute
              << " to "  << curCard.to.hour   << ":" << curCard.to.minute 
-             << " " << curCard.to.day << "\n\n";
+             << " on "  << curCard.day       << "\n\n";
     }
 
     cout << endl;
@@ -167,9 +166,8 @@ bool availability::print ( ostream out )
 
         //Output card
         out << "from " << curCard.from.hour << ":" << curCard.from.minute
-            << " " << curCard.from.day
-            << " to " << curCard.to.hour << ":" << curCard.to.minute
-            << " " << curCard.to.day << "\n\n";
+            << " to "  << curCard.to.hour   << ":" << curCard.to.minute
+            << " on "  << curCard.day << "\n\n";
     }
 
     out << endl;
@@ -191,10 +189,9 @@ bool availability::card::operator== ( const card& rhs )
 bool _time::operator== ( const _time& rhs )
 {
     
-    if ( day == rhs.day )
-        if ( hour == rhs.hour )
-            if ( minute == rhs.minute )
-                return true;
+    if ( hour == rhs.hour )
+        if ( minute == rhs.minute )
+            return true;
 
     return false;
 }

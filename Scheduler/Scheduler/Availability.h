@@ -21,7 +21,6 @@ struct _time
 {
     int hour = -1;
     int minute = -1;
-    days day = EVERYDAY;
 
     bool operator== ( const _time& rhs );
 };
@@ -36,6 +35,7 @@ public:
     {
         _time from;
         _time to;
+        days day = EVERYDAY;
 
         bool operator== ( const card& rhs );
     };

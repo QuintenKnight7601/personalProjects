@@ -141,6 +141,7 @@
   <ItemGroup>
     <ClCompile Include="Availability.cpp" />
     <ClCompile Include="Employee.cpp" />
+    <ClCompile Include="Schedule.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>

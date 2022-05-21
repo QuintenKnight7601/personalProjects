@@ -160,6 +160,46 @@ bool employee::clear ( )
     return true;
 }
 
+string employee::first ( )
+{
+    return info.fName;
+}
+
+string employee::middle ( )
+{
+    return info.mName;
+}
+
+string employee::last ( )
+{
+    return info.lName;
+}
+
+string employee::id ( )
+{
+    return info.id;
+}
+
+vector<string> employee::incompat ( )
+{
+    return info.incompat;
+}
+
+vector<string> employee::compat ( )
+{
+    return info.compat;
+}
+
+availability employee::unavail ( )
+{
+    return info.avail;
+}
+
+availability employee::avail ( )
+{
+    return info.avail;
+}
+
 
 bool employee::contains ( vector<string> list, string seek )
 {

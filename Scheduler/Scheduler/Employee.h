@@ -46,6 +46,14 @@ public:
 
 
     //Information
+    string first ( );
+    string middle ( );
+    string last ( );
+    string id ( );
+    vector<string> incompat ( );
+    vector<string> compat ( );
+    availability unavail ( );
+    availability avail ( );
 
 
 
