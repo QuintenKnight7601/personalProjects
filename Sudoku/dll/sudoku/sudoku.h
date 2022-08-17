@@ -10,36 +10,10 @@ using namespace std;
 #ifndef __sudoku__H__
 #define sudokuDLL_API __declspec(dllexport)
 
-class sudokuDLL_API sudoku
+class sudokuDLL_API sudokuList
 {
+
 public:
-    //Constructors/Deconstructor
-    sudoku ( );
-    sudoku ( sudoku& s );
-    ~sudoku ( );
-
-    //Manipulation
-    bool resize ( int size );
-    void clear ( );
-    bool solve ( int num );
-
-    //Information
-    int size ( );
-    int numPoss ( );
-    bool empty ( );
-    vector<int> cont ( int pos );
-    vector<vector<int>> cont ( );
-    vector<int> puzz ( );
-
-    //Input/Output
-    bool puzzIn ( vector<int> in );
-    bool puzzIn ( ifstream& in, string filename = "" );
-    bool templateOut ( ostream& out );
-    bool templateOut ( vector<int> out );
-    bool templateOut ( ofstream& out, string filename = "" );
-
-
-private:
     struct puzzle
     {
         vector<vector<int>> cont;
@@ -51,13 +25,35 @@ private:
         puzzle* next;
     };
 
-    //Function prototypes
-    bool is_valid ( int val, int pos );
-    void clearPuzz ( puzzle& poss );
-    bool permute ( puzzle& temp, int pos = 0 );
+    //Constructors/Deconstructor
+    sudokuList ( );
+    sudokuList ( sudokuList& s );
+    ~sudokuList ( );
+
+    //Iterator
+
+    //Modifiers
+    bool assign ( puzzle input );
+    bool insert ( puzzle input );
+    bool erase ( int num );
+    bool pop ( puzzle output );
+
+    bool resize ( int size );
+    void clear ( );
+    bool solve ( int num );
+
+    //Information
+    int size ( );
+    bool empty ( );
+    vector<int> seek ( int pos );
+    vector<vector<int>> cont ( );
+    
+
+
+private:
 
     puzzle* tailptr;
-    puzzle basePuzz;
+    puzzle* temp;
 };
 
 #endif

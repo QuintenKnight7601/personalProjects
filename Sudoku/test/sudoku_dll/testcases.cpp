@@ -81,3 +81,8 @@ TEST_CASE ( "resize - with sections" )
         REQUIRE ( puzzle.size ( ) == 9 );
     }
 }
+
+TEST_CASE ( "clear - with sections" )
+{
+
+}
