@@ -5,19 +5,41 @@
 #include <iomanip>
 #include <vector>
 
+#ifndef SUITS
+#define SUITS
+namespace suits
+{
+    enum Enum { club, diamond, heart, spade };
+    Enum fromInt ( const int val );
+
+    inline Enum fromInt ( const int val )
+    {
+        if ( val == 0 )
+            return club;
+        if ( val == 1 )
+            return diamond;
+        if ( val == 2 )
+            return heart;
+        if ( val == 3 )
+            return spade;
+        return Enum ( );
+    }
+}
+
+#endif
+
+#ifndef __CARD__H__
+#define __CARD__H__
+
 class playingCards
 {
 
 
 public:
-    enum suits
-    {
-        diamond, heart, club, spade
-    };
 
     struct card
     {
-        suits suit;     //Current card suit
+        suits::Enum suit;     //Current card suit
         int value;      //Current card value
     };
 
@@ -37,14 +59,17 @@ public:
     card _pop ( );                      //Remove end item
     card remove ( card val );           //Remove specific card
     card remove ( int pos );            //Remove card at position
+    bool shuffle ( );                   //Randomizes cards in deck
 
     //Information
     card top ( );
-    card bot ( );
+    card bottom ( );
     int find ( card val );
     card at ( int pos );
     bool empty ( );
+    int size ( );
     friend bool operator==( const card& lhs, const card& rhs );
+    friend bool operator!=( const card& lhs, const card& rhs );
     
 
 private:
@@ -58,3 +83,6 @@ private:
     _card* headptr = nullptr;
     bool used[52] = { false };    //order: c, d, h, s
 };
+
+
+#endif

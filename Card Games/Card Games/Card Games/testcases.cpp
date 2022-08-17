@@ -15,7 +15,7 @@ TEST_CASE ( "push - Sections" )
     {
         playingCards::card temp;
         playingCards::card temp2;
-        temp.suit = playingCards::suits::diamond;
+        temp.suit = suits::diamond;
         temp.value = 1;
 
         deck.push ( temp );
@@ -29,12 +29,12 @@ TEST_CASE ( "push - Sections" )
     {
         playingCards::card temp;
         playingCards::card temp2;
-        temp.suit = playingCards::suits::diamond;
+        temp.suit = suits::diamond;
         temp.value = 1;
 
         deck.push ( temp );
 
-        temp.suit = playingCards::suits::heart;
+        temp.suit = suits::heart;
         temp.value = 8;
 
         deck.push ( temp );
