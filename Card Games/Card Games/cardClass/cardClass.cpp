@@ -20,5 +20,10 @@ int main ( )
         }
     }
 
+    //Defining variables
+
+
+    
+
 
 }

@@ -68,11 +68,12 @@ public:
     card at ( int pos );
     bool empty ( );
     int size ( );
+    const bool operator==( const playingCards& rhs );
     friend bool operator==( const card& lhs, const card& rhs );
     friend bool operator!=( const card& lhs, const card& rhs );
     
 
-private:
+protected:
     struct _card
     {
         card val;

@@ -530,6 +530,35 @@ int playingCards::size ( )
     return i;
 }
 
+const bool playingCards::operator==( const playingCards& rhs )
+{
+    //Defining variables
+    _card* rptr = rhs.headptr;
+    _card* lptr = headptr;
+
+    //Checking if both are empty
+    if ( headptr == nullptr && rhs.headptr == nullptr )
+        return true;
+
+    //Check if either is empty
+    if ( headptr == nullptr || rhs.headptr == nullptr )
+        return false;
+
+    //While not at the end of either list
+    while ( rptr != nullptr && lptr != nullptr )
+    {
+        //If card is not the same
+        if ( rptr->val != lptr->val )
+            return false;
+
+        //Increment pointers
+        lptr = lptr->next;
+        rptr = rptr->next;
+    }
+
+    return true;
+}
+
 bool operator==( const playingCards::card& lhs, const playingCards::card& rhs )
 {
     //If the suits are equal

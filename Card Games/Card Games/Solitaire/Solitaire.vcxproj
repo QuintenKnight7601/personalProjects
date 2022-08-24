@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{d8b659ca-8631-444c-af46-93863e6b7295}</ProjectGuid>
-    <RootNamespace>CardGames</RootNamespace>
+    <ProjectGuid>{6a0ff3dd-aefb-4add-9ef6-0a7597219aab}</ProjectGuid>
+    <RootNamespace>Solitaire</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -139,13 +139,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Card Games.cpp" />
-    <ClCompile Include="card.cpp" />
-    <ClCompile Include="testcases.cpp" />
+    <ClInclude Include="framework.h" />
+    <ClInclude Include="Solitaire.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="card.h" />
-    <ClInclude Include="framework.h" />
+    <ClCompile Include="Solitaire.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
