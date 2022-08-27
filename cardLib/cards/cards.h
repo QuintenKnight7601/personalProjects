@@ -8,7 +8,7 @@
 
 typedef CARDS::cards cardStruct;
 
-class cards : public queue<CARDS::cards>
+class cards : public vector<CARDS::cards>
 {
 
 
@@ -16,29 +16,21 @@ public:
 
     //Con/Deconstructors
     cards ( );
-    cards ( cards& orig );
     ~cards ( );
 
     //Manipulation
+    bool set();                         //Fill deck with missing cards
     bool reset ( );                     //Reset to default
     bool clear ( );                     //Clear deck
-    bool fill ( );                      //Fill deck with missing cards
-    bool push_front(cardStruct card);             //Insert card on front
-    bool push_back (cardStruct card);            //Insert card on end
-    bool insert ( cardStruct card, int pos );  //Insert card at position
-    cardStruct pop_front ( );                       //Remove front item
-    cardStruct pop_back ( );                      //Remove end item
-    cardStruct remove (cardStruct card);           //Remove specific card
-    cardStruct remove ( int pos );            //Remove card at position
+    bool place ( cardStruct cardIn, int pos = 0, bool reverse = false );            //Insert card on front
+    bool draw ( cardStruct& cardOut, int pos = 0, bool reverse = false );                       //Remove front item
     bool shuffle ( );                   //Randomizes cards in deck
 
     //Information
-    cardStruct front();
-    cardStruct back();
-    int find (cardStruct card);
-    cardStruct at ( int pos );
+    cardStruct peek(int pos = 0, bool reverse = false);
+    int seek (cardStruct card, bool reverse = false );
     bool empty();
-    int size ( );
+    int size();
 
     //Conversion
 
@@ -50,6 +42,7 @@ public:
     
 
 protected:
+    bool used[52] = { false };
 };
 
 

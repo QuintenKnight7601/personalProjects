@@ -144,6 +144,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cards.cpp" />
+    <ClCompile Include="_cards.cpp" />
     <ClCompile Include="testcases.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

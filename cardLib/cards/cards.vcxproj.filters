@@ -26,6 +26,9 @@
     <ClCompile Include="testcases.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="_cards.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="cards.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
