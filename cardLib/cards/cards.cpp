@@ -9,59 +9,10 @@ cards::cards ( )
 
 cards::cards ( cards& orig )
 {
-    //Defining variables
-    _card* otemp = orig.headptr;    //Temporary pointer for orig list
-    _card* ntemp = headptr;         //Temporary pointer for new list
-    _card* ptemp = headptr;         //Previous pointer for new list
-
-    //If the original is empty, return
-    if ( orig.empty ( ) )
-    {
-        return;
-    }
-
-    //Copy the contents of used
-    for ( int i = 0; i < 52; ++i )
-    {
-        used[i] = orig.used[i];
-    }
-
-    //Copy the first card
-    headptr = new ( nothrow ) _card;
-    ntemp = headptr;
-    ptemp = headptr;
-    ntemp->val = otemp->val;
-    otemp = otemp->next;
-
-    //Copy the contents of the cards
-    while ( otemp != orig.headptr )
-    {
-        ntemp->next = new ( nothrow ) _card;
-        ntemp = ntemp->next;
-        ntemp->prev = ptemp;
-        ntemp->val = otemp->val;
-        otemp = otemp->next;
-    }
 }
 
 cards::~cards ( )
 {
-    //Defining variables
-    _card* ptr = headptr;
-
-    //If list is empty return
-    if ( empty ( ) )
-    {
-        return;
-    }
-
-    //Move through list until at end, deleting cards
-    while ( headptr != nullptr )
-    {
-        headptr = headptr->next;
-        delete ptr;
-        ptr = headptr;
-    }
 }
 
 bool cards::reset ( )
@@ -79,36 +30,20 @@ bool cards::reset ( )
 
 bool cards::clear ( )
 {
-    //Defining variables
-    _card* temp = headptr;
-
-    //While there are cards, delete them
-    while ( headptr != nullptr )
-    {
-        headptr = headptr->next;
-        delete temp;
-        temp = headptr;
-    }
-
-    //Set used to false
-    for ( int i = 0; i < 52; ++i )
-    {
-        used[i] = false;
-    }
-
+    while (!empty())
+        queue::pop();
+    
     return true;
 }
 
 bool cards::fill ( )
 {
-    //Defining variables
-    card temp;
 
     //For each card in a deck
     for ( int i = 0; i < 52; ++i )
     {
         //If the card is not used
-        if ( used[i] )
+        if ( find(i) != -1 )
         {
             //Add card to the deck
             temp.suit = suits::fromInt ( i / 13 );

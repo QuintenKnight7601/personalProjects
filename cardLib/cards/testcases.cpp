@@ -1,5 +1,5 @@
 #include "framework.h"
-#include "card.h"
+#include "cards.h"
 #include "..\..\..\catch.hpp"
 
 TEST_CASE ( "Constructor/Deconstructor" )

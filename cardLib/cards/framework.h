@@ -20,7 +20,13 @@ namespace CARDS
     {
         int val; //value from 1 to 13, 1 being ace, and 13 being king
         suits suit;
+
+        operator int() const {
+            cards card;
+
+        };
     };
+
 
     inline suits fromInt(const int val)  //Converts int to enum value
     {
