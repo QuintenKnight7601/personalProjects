@@ -1,3 +1,4 @@
+/*
 #include "framework.h"
 #include "cards.h"
 #include "..\..\..\catch.hpp"
@@ -134,3 +135,4 @@ TEST_CASE ( "operators - with sections" )
 {
 
 }
+*/

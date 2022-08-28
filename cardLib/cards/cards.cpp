@@ -17,7 +17,24 @@ bool cards::set()
     return false;
 }
 
-bool cards::place(cardStruct cardIn, int pos, bool reverse)
+bool cards::reset()
+{
+    if (clear())
+        return set();
+    return false;
+}
+
+bool cards::clear()
+{
+    vector::clear();
+
+    if (!empty())
+        return false;
+
+    return true;
+}
+
+bool cards::place(CARDS::cards cardIn, int pos, bool reverse)
 {
     //Defining variables
     int initSize = size();
@@ -48,27 +65,151 @@ bool cards::place(cardStruct cardIn, int pos, bool reverse)
     return true;
 }
 
-bool cards::draw(cardStruct& cardOut, int pos, bool reverse)
+bool cards::draw(CARDS::cards& cardOut, int pos, bool reverse)
 {
     //Defining variables
     int initSize = size();
-
+    int cardPos = pos;
 
     if (empty())
         return false;
 
-    if (reverse)
+    if (pos > size())
     {
-        if (pos > initSize)
+        if (reverse)
         {
             cardOut = front();
             erase(begin());
-            
-            if (initSize == size())
-                return false;
-            return true;
+        }
+        else
+        {
+            cardOut = back();
+            erase(end());
+        }
+
+        if (initSize == size())
+            return false;
+
+        return true;
+    }
+
+    if (reverse)
+    {
+        cardPos = size() - pos;
+    }
+
+    cardOut = at(cardPos);
+
+    erase(begin() + cardPos);
+
+    if (initSize == size())
+        return false;
+
+    return true;
+}
+
+
+bool cards::shuffle()
+{
+    //Defining variables
+    cards temp = *this;
+    bool track[52] = { false };
+    int num = size();
+    int i = 0;
+    int to;
+    int numUsed = 0;
+
+    srand(int(time(0)));
+
+    //Check if empty
+    if (empty())
+        return true;
+
+    //Randomize cards for each card in deck
+    for (i = 0; i < num; ++i)
+    {
+        numUsed = 0;
+        to = rand() % (num - i);
+        for (int n = 0; n < to; ++n)
+        {
+            if (track[n])
+            {
+                --n;
+                ++numUsed;
+            }
+        }
+
+        to += numUsed;
+
+        at(to) = temp.at(i);
+    }
+
+    return true;
+}
+
+
+const cardStruct cards::peek(int pos, bool reverse)
+{
+    int cardPos = pos;
+
+    if (pos > size())
+        return cardStruct();
+
+    if (reverse)
+        cardPos = size() - pos;
+
+    return at(cardPos);
+}
+
+const int cards::seek(CARDS::cards card, bool reverse)
+{
+    int deckSize = size();
+
+    if (empty())
+        return -1;
+
+    for (int i = 0; i < deckSize; ++i)
+    {
+        if (at(i) == card)
+        {
+            if (reverse)
+                return (deckSize - i);
+            return i;
         }
     }
 
+    return -1;
+}
 
+const bool cards::empty()
+{
+    return vector::empty();
+}
+
+const int cards::size()
+{
+    return int(vector::size());
+}
+
+const bool cards::operator==(cards rhs)
+{
+    int deckSize = size();
+
+    if (empty())
+    {
+        if (rhs.empty())
+            return true;
+        return false;
+    }
+    else if (rhs.empty())
+        return false;
+
+    if (deckSize != rhs.size())
+        return false;
+
+    for (int i = 0; i < deckSize; ++i)
+        if (at(i) != rhs.at(i))
+            return false;
+
+    return true;
 }

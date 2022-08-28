@@ -11,7 +11,7 @@ using namespace std;
 
 namespace CARDS 
 {
-    enum suits { club, diamond, heart, spade }; //Lowest to highest value
+    enum class suits { club, diamond, heart, spade }; //Lowest to highest value
 
     suits fromInt(const int val);
 
@@ -19,24 +19,19 @@ namespace CARDS
     {
         int val; //value from 1 to 13, 1 being ace, and 13 being king
         suits suit;
-
-        operator int() const {
-            cards card;
-
-        };
     };
 
 
     inline suits fromInt(const int val)  //Converts int to enum value
     {
         if (val == 0)
-            return club;
+            return suits::club;
         if (val == 1)
-            return diamond;
+            return suits::diamond;
         if (val == 2)
-            return heart;
+            return suits::heart;
         if (val == 3)
-            return spade;
+            return suits::spade;
         return suits();
     } 
 }
