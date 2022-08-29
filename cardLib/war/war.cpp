@@ -73,7 +73,7 @@ bool war::playGame()
 bool war::playRound()
 {
     //Defining variables
-    CARDS::cards tempCard;
+    card tempCard;
 
     //Both players discard a card
     disc1.place(hand1.draw());

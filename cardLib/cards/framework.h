@@ -20,21 +20,22 @@ namespace CARDS
         int val; //value from 1 to 13, 1 being ace, and 13 being king
         suits suit;
 
-        inline _cards fromInt(const int val) {
-
+        inline _cards fromInt(const int input) {
+            val = input / 13;
+            suit = CARDS::fromInt(input % 13);
         }
     };
 
 
-    inline suits fromInt(const int val)  //Converts int to enum value
+    inline suits fromInt(int input)  //Converts int to enum value
     {
-        if (val == 0)
+        if (input == 0)
             return suits::club;
-        if (val == 1)
+        if (input == 1)
             return suits::diamond;
-        if (val == 2)
+        if (input == 2)
             return suits::heart;
-        if (val == 3)
+        if (input == 3)
             return suits::spade;
         return suits();
     } 
