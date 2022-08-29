@@ -15,10 +15,14 @@ namespace CARDS
 
     suits fromInt(const int val);
 
-    struct cards 
+    struct _cards 
     {
         int val; //value from 1 to 13, 1 being ace, and 13 being king
         suits suit;
+
+        inline _cards fromInt(const int val) {
+
+        }
     };
 
 

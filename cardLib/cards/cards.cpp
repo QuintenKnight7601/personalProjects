@@ -14,7 +14,15 @@ cards::~cards()
 
 bool cards::set()
 {
-    return false;
+    if (!empty())
+    {
+
+    }
+
+    for (int i = 0; i < 52; ++i)
+    {
+        place(i);
+    }
 }
 
 bool cards::reset()
@@ -65,32 +73,30 @@ bool cards::place(CARDS::cards cardIn, int pos, bool reverse)
     return true;
 }
 
-bool cards::draw(CARDS::cards& cardOut, int pos, bool reverse)
+CARDS::cards cards::draw( int pos, bool reverse)
 {
     //Defining variables
     int initSize = size();
     int cardPos = pos;
+    CARDS::cards tempCard;
 
     if (empty())
-        return false;
+        return CARDS::cards();
 
     if (pos > size())
     {
         if (reverse)
         {
-            cardOut = front();
+            tempCard = front();
             erase(begin());
         }
         else
         {
-            cardOut = back();
+            tempCard = back();
             erase(end());
         }
 
-        if (initSize == size())
-            return false;
-
-        return true;
+        return tempCard;
     }
 
     if (reverse)
@@ -98,14 +104,11 @@ bool cards::draw(CARDS::cards& cardOut, int pos, bool reverse)
         cardPos = size() - pos;
     }
 
-    cardOut = at(cardPos);
+    tempCard = at(cardPos);
 
     erase(begin() + cardPos);
 
-    if (initSize == size())
-        return false;
-
-    return true;
+    return tempCard;
 }
 
 

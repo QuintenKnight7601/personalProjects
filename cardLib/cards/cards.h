@@ -8,11 +8,12 @@
 
 typedef CARDS::cards cardStruct;
 
-class cards : public vector<CARDS::cards>
+class cards : protected vector<CARDS::cards>
 {
 
 
 public:
+    typedef CARDS::_cards card;
 
     //Con/Deconstructors
     cards ( );
@@ -23,7 +24,7 @@ public:
     bool reset ( );                     //Reset to default
     bool clear ( );                     //Clear deck
     bool place (CARDS::cards cardIn, int pos = 0, bool reverse = false );            //Insert card on front
-    bool draw (CARDS::cards& cardOut, int pos = 0, bool reverse = false );                       //Remove front item
+    CARDS::cards draw ( int pos = 0, bool reverse = false );                       //Remove front item
     bool shuffle ( );                   //Randomizes cards in deck
 
     //Information
