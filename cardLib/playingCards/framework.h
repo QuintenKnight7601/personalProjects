@@ -3,26 +3,32 @@
 #ifndef __CARDSFRAMEWORK__H__
 #define __CARDSFRAMEWORK__H__
 
+#define WIN32_LEAN_AND_MEAN             // Exclude rarely-used stuff from Windows headers
+// Windows Header Files
+#include <windows.h>
 #include <iostream>
 #include <iomanip>
 #include <vector>
 
 using namespace std;
 
-namespace CARDS 
+namespace CARDS
 {
     enum class suits { club, diamond, heart, spade }; //Lowest to highest value
 
     suits fromInt(const int val);
 
-    struct _cards 
+    struct _cards
     {
         int val; //value from 1 to 13, 1 being ace, and 13 being king
         suits suit;
 
+        //Function to convert from int to _cards
         inline _cards fromInt(const int input) {
-            val = input / 13;
-            suit = CARDS::fromInt(input % 13);
+            _cards tempCard;
+            tempCard.val = input / 13;
+            tempCard.suit = CARDS::fromInt(input % 13);
+            return tempCard;
         }
     };
 
@@ -38,7 +44,7 @@ namespace CARDS
         if (input == 3)
             return suits::spade;
         return suits();
-    } 
+    }
 }
 
 #endif

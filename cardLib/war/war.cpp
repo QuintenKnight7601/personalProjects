@@ -1,14 +1,16 @@
 #include "framework.h"
 #include "war.h"
 
+int main() {
 
+}
 
 war::war()
 {
     deck.set();
 }
 
-war::war(cards deckIn)
+war::war(playingCards deckIn)
 {
     deck = deckIn;
 }
@@ -17,24 +19,12 @@ war::~war()
 {
 }
 
-bool war::warMain()
-{
-    //Defining variables
-    cards hand1, hand2;
-
-    //Prepare game
-    if (!setHands());
-
-    
-}
-
-
 bool war::setHands()
 {
     //Defining variables
     int size = deck.size();
-    cards tempDeck;
-    CARDS::cards tempCard;
+    playingCards tempDeck;
+    card tempCard;
 
     //If the deck is empty, fill it
     if (size == 0)
@@ -59,34 +49,79 @@ bool war::setHands()
             if (!hand2.place(tempCard))
                 return false;
     }
+
+    return true;
 }
-
-
 
 bool war::playGame()
 {
 
-
+    return true;
 }
-
 
 bool war::playRound()
 {
     //Defining variables
-    card tempCard;
+    int dif = 0;
 
-    //Both players discard a card
-    disc1.place(hand1.draw());
-    disc2.place(hand2.draw());
+    while (dif == 0)
+    {
+        //Both players discard a card
+        disc1.place(hand1.draw());
+        disc2.place(hand2.draw());
 
+        //Set difference integer
+        dif = compare();
+
+        //If tied then draw three and repeat
+        if (dif == 0)
+        {
+            disc1.place(hand1.draw());
+            disc2.place(hand2.draw());
+            disc1.place(hand1.draw());
+            disc2.place(hand2.draw());
+            disc1.place(hand1.draw());
+            disc2.place(hand2.draw());
+        }
+    }
+
+    if (dif > 0)
+    {
+        while (!disc1.empty())
+            if (!hand1.place(disc1.draw(), 0, true))
+                return false;
+        while (!disc2.empty())
+            if (!hand1.place(disc2.draw(), 0, true))
+                return false;
+
+        return true;
+    }
+
+    while (!disc2.empty())
+        if (!hand2.place(disc2.draw(), 0, true))
+            return false;
+    while (!disc1.empty())
+        if (!hand2.place(disc1.draw(), 0, true))
+            return false;
+
+    return true;
 
 }
 
-bool war::compare() 
+int war::compare() 
 {
     //Defining variables
     int val1 = disc1.peek().val, val2 = disc2.peek().val;
+    int dif;
 
+    //If aces, set as high cards
     if (val1 == 0)
+        val1 += 13;
+    if (val2 == 0)
+        val2 += 13;
 
+    //Find the difference between the values
+    dif = val1 - val2;
+
+    return dif;
 }

@@ -85,10 +85,10 @@ CARDS::_cards cards::draw( int pos, bool reverse)
     //Defining variables
     int initSize = size();
     int cardPos = pos;
-    CARDS::cards tempCard;
+    CARDS::_cards tempCard;
 
     if (empty())
-        return CARDS::cards();
+        return CARDS::_cards();
 
     if (pos > size())
     {
@@ -163,7 +163,7 @@ const CARDS::_cards cards::peek(int pos, bool reverse)
     int cardPos = pos;
 
     if (pos > size())
-        return cardStruct();
+        return CARDS::_cards();
 
     if (reverse)
         cardPos = size() - pos;
@@ -222,4 +222,9 @@ const bool cards::operator==(cards rhs)
             return false;
 
     return true;
+}
+
+int main() {
+
+    return 0;
 }

@@ -3,20 +3,19 @@
 #ifndef __WAR__H__
 #define __WAR__H__
 
-class war : protected cards {
-    cards deck, hand1, hand2, disc1, disc2;
+class war : protected playingCards {
+    playingCards deck, hand1, hand2, disc1, disc2;
     int rounds = 0;
 
 public:
     war();
-    war(cards deckIn);
+    war(playingCards deckIn);
     ~war();
 
-    bool warMain();
     bool setHands();
     bool playGame();
     bool playRound();
-    bool compare();
+    int compare(); //Positive if right hand side is greater, negative if left hand side is greater
 };
 
 
