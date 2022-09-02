@@ -67,6 +67,9 @@ bool cards::place(CARDS::_cards cardIn, int pos, bool reverse)
         return true;
     }
 
+    if (reverse)
+        pos = initSize - pos;
+
     insert(begin() + pos, cardIn);
 
     if (initSize == size())
@@ -136,7 +139,7 @@ bool cards::shuffle()
         to = rand() % (num - i);
         for (int n = 0; n < to; ++n)
         {
-            if (track[n])
+            if (track[n+numUsed])
             {
                 --n;
                 ++numUsed;
@@ -145,6 +148,7 @@ bool cards::shuffle()
 
         to += numUsed;
 
+        track[to] = true;
         at(to) = temp.at(i);
     }
 

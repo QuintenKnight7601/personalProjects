@@ -14,6 +14,7 @@ public:
     //Game backend functions
     bool setHands();
     bool playGame();
+    bool iterateGame();
     bool playRound();
     int compare(); //Positive if right hand side is greater, negative if left hand side is greater
 

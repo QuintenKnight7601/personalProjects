@@ -23,8 +23,8 @@ namespace CARDS
         //Function to convert from int to _cards
         inline _cards fromInt(const int input) {
             _cards tempCard;
-            tempCard.val = input / 13;
-            tempCard.suit = CARDS::fromInt(input % 13);
+            tempCard.val = input % 13;
+            tempCard.suit = CARDS::fromInt(input / 13);
             return tempCard;
         }
     };

@@ -7,7 +7,9 @@ war::war( bool start )
     deck.shuffle();
 
     if (start)
+    {
         playGame();
+    }
 }
 
 war::war(cards deckIn, bool start )
@@ -57,13 +59,25 @@ bool war::setHands()
 
 bool war::playGame()
 {
+    setHands();
+
+    return iterateGame();
+    int tab;
+    cout << "hi";
+}
+
+bool war::iterateGame()
+{
+
     if (hand1.empty() || hand2.empty())
         return true;
-    
+
     if (!playRound())
         return false;
 
-    return playGame();
+    ++rounds;
+
+    return iterateGame();
 }
 
 bool war::playRound()
@@ -71,7 +85,7 @@ bool war::playRound()
     //Defining variables
     int dif = 0;
 
-    while (dif == 0)
+    do
     {
         //Both players discard a card
         disc1.place(hand1.draw());
@@ -90,15 +104,15 @@ bool war::playRound()
             disc1.place(hand1.draw());
             disc2.place(hand2.draw());
         }
-    }
+    } while (dif == 0);
 
     if (dif > 0)
     {
         while (!disc1.empty())
-            if (!hand1.place(disc1.draw(), 0, true))
+            if (!hand1.place(disc1.draw(), 0))
                 return false;
         while (!disc2.empty())
-            if (!hand1.place(disc2.draw(), 0, true))
+            if (!hand1.place(disc2.draw(), 0))
                 return false;
 
         return true;
