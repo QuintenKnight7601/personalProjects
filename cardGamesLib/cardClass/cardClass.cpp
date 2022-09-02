@@ -1,5 +1,5 @@
 #include "framework.h"
-#include "cards.h"
+#include "cardClass.h"
 
 cards::cards()
 {
@@ -54,7 +54,7 @@ bool cards::place(CARDS::_cards cardIn, int pos, bool reverse)
     //Defining variables
     int initSize = size();
 
-    
+
 
     if (empty())
     {
@@ -80,7 +80,7 @@ bool cards::place(CARDS::_cards cardIn, int pos, bool reverse)
     return true;
 }
 
-CARDS::_cards cards::draw( int pos, bool reverse)
+CARDS::_cards cards::draw(int pos, bool reverse)
 {
     //Defining variables
     int initSize = size();

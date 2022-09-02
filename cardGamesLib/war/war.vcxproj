@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{ba8638ad-56ae-4dab-8a47-caeb0e7e67ed}</ProjectGuid>
-    <RootNamespace>cards</RootNamespace>
+    <ProjectGuid>{ab1b8363-2d5a-46c5-83f1-1b54f4ec7f97}</ProjectGuid>
+    <RootNamespace>war</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -139,13 +139,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="cards.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="war.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="cards.cpp" />
-    <ClCompile Include="_cards.cpp" />
-    <ClCompile Include="testcases.cpp" />
+    <ClCompile Include="war.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

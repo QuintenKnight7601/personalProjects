@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{6007b256-b3d8-40db-8de4-c28e6c70c8ac}</ProjectGuid>
-    <RootNamespace>cardLib</RootNamespace>
+    <ProjectGuid>{a5ae09aa-e441-4d65-8d46-a68b4a9c6c94}</ProjectGuid>
+    <RootNamespace>cardGamesLib</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -139,7 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="cardLib.cpp" />
+    <ClCompile Include="cardGamesLib.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />

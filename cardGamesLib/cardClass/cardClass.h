@@ -2,7 +2,6 @@
 
 #include "framework.h"
 
-
 #ifndef __CARDS__H__
 #define __CARDS__H__
 
@@ -36,21 +35,20 @@ public:
 
     //Operator
     const bool operator==( const cards rhs );
-    friend bool operator==( const CARDS::_cards& lhs, const CARDS::_cards rhs );
-    friend bool operator!=( const CARDS::_cards& lhs, const CARDS::_cards& rhs );
+    friend bool operator==( const CARDS::_cards lhs, const CARDS::_cards rhs );
+    friend bool operator!=( const CARDS::_cards lhs, const CARDS::_cards rhs );
     
 
 protected:
 };
-
-bool operator==(const CARDS::_cards& lhs, const CARDS::_cards rhs)
+bool operator==(const CARDS::_cards lhs, const CARDS::_cards rhs)
 {
     if (lhs.suit == rhs.suit && lhs.val == rhs.val)
         return true;
     return false;
 }
 
-bool operator!=(const CARDS::_cards& lhs, const CARDS::_cards& rhs)
+bool operator!=(const CARDS::_cards lhs, const CARDS::_cards rhs)
 {
     if (lhs.suit == rhs.suit && lhs.val == rhs.val)
         return false;
