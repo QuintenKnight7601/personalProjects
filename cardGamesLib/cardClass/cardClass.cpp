@@ -1,9 +1,10 @@
 #include "framework.h"
 #include "cardClass.h"
 
-cards::cards()
+cards::cards( bool fill )
 {
-    set();
+    if (fill)
+        reset();
 
     return;
 }
@@ -12,30 +13,23 @@ cards::~cards()
 {
 }
 
-bool cards::set()
+bool cards::reset()
 {
     //Defining variables
     card tempCard;
 
-
-    if (!empty())
-    {
-
-    }
-
-    for (int i = 0; i < 52; ++i)
-    {
-        if (!place(tempCard.fromInt(i)))
-            return false;
-    }
-
-    return true;
-}
-
-bool cards::reset()
-{
+    //If cleared correctly
     if (clear())
-        return set();
+    {
+        //Fill with entire set of cards
+        for (int i = 0; i < 52; ++i)
+        {
+            if (!place(tempCard.fromInt(i)))
+                return false;
+        }
+
+        return true;
+    }
     return false;
 }
 
@@ -222,9 +216,4 @@ const bool cards::operator==(cards rhs)
             return false;
 
     return true;
-}
-
-int main() {
-
-    return 0;
 }

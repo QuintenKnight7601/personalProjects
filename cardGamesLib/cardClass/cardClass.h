@@ -13,11 +13,10 @@ public:
     typedef CARDS::_cards card;
 
     //Con/Deconstructors
-    cards ( );
+    cards ( bool fill = false );
     ~cards ( );
 
-    //Manipulation
-    bool set();                         //Fill deck with missing cards
+    //Manipulation                    //Fill deck with missing cards
     bool reset ( );                     //Reset to default
     bool clear ( );                     //Clear deck
     bool place (CARDS::_cards cardIn, int pos = 0, bool reverse = false );            //Insert card on front

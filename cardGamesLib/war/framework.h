@@ -3,7 +3,9 @@
 #ifndef __WARFRAMEWORK__H__
 #define __WARFRAMEWORK__H__
 
-#include "../playingCards/playingCards.h"
+#include "../cardClass/cardClass.h"
+#include "../cardClass/cardClass.cpp"
+
 
 using namespace std;
 

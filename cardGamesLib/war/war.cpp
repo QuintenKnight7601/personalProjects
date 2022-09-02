@@ -1,18 +1,20 @@
 #include "framework.h"
 #include "war.h"
 
-int main() {
-
-}
-
-war::war()
+war::war( bool start )
 {
-    deck.set();
+    deck.reset();
+    deck.shuffle();
+
+    if (start)
+        playGame();
 }
 
-war::war(playingCards deckIn)
+war::war(cards deckIn, bool start )
 {
     deck = deckIn;
+    if (start)
+        playGame();
 }
 
 war::~war()
@@ -23,12 +25,12 @@ bool war::setHands()
 {
     //Defining variables
     int size = deck.size();
-    playingCards tempDeck;
+    cards tempDeck;
     card tempCard;
 
     //If the deck is empty, fill it
     if (size == 0)
-        if (!deck.set() || !deck.shuffle()) //If the deck does not fill, return false
+        if (!deck.reset() || !deck.shuffle()) //If the deck does not fill, return false
             return false;
  
 
@@ -55,8 +57,13 @@ bool war::setHands()
 
 bool war::playGame()
 {
+    if (hand1.empty() || hand2.empty())
+        return true;
+    
+    if (!playRound())
+        return false;
 
-    return true;
+    return playGame();
 }
 
 bool war::playRound()
@@ -124,4 +131,55 @@ int war::compare()
     dif = val1 - val2;
 
     return dif;
+}
+
+bool war::winner(int& player)
+{
+    //If both hands are empty return false
+    if (hand1.empty() && hand2.empty())
+        return false;
+
+    //If hand 1 is empty player 2 wins
+    if (hand1.empty())
+    {
+        player = 2;
+        return true;
+    }
+    //If hand 2 is empty player 1 wins
+    if (hand2.empty())
+    {
+        player = 1;
+        return true;
+    }
+
+    //No hands were empty, return false
+    return false;
+}
+
+int war::numRounds()
+{
+    return rounds;
+}
+
+cards war::hand(bool player /*true for 1, false for 2*/)
+{
+    //return selected hand
+    if (player)
+        return hand1;
+    return hand2;
+}
+
+bool warGame()
+{
+    int winner;
+
+    cout << "Welcome to War!" << endl << endl;
+
+    war game;
+
+    game.winner(winner);
+
+    cout << "Player " << winner << " won the war!" << endl;
+
+    return false;
 }
