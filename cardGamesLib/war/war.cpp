@@ -23,6 +23,110 @@ war::~war()
 {
 }
 
+
+bool war::manual()
+{
+    int win;
+    char choice;
+    bool seeDeck = false;
+
+    do
+    {
+        cout << "Choose an option:\n"
+            << " 1: auto fill deck\n"
+            << " 2: manual fill deck\n"
+            << " 3: deck from file\nChoice: ";
+
+        cin >> choice;
+
+        if (choice == '1')
+        {
+            reset();
+        }
+        else if (choice == '2')
+        {
+            cout << "Feature still in development" << endl;
+        }
+        else if (choice == '3')
+        {
+            cout << "Feature still in development" << endl;
+        }
+        else
+        {
+            cout << "INVALID CHOICE" << endl;
+        }
+
+        cout << "\n\n\n\n\n\n\n\n\n\n\n" << endl;
+    } while (choice != '1' /* && choice != '2' && choice != '3' */);
+
+    choice = 0;
+
+    do
+    {
+        cout << "See deck order?\n 1: yes\n 2: no\n\nChoice: ";
+
+        cin >> choice;
+
+        if (choice == '1')
+        {
+            seeDeck = true;
+        }
+        else if (choice == '2')
+        {
+            seeDeck = false;
+        }
+        else
+        {
+            cout << "INVALID CHOICE" << endl;
+        }
+
+        cout << "\n\n\n\n\n\n\n\n\n\n" << endl;
+    } while (choice != '1' && choice != '2');
+
+    choice = 0;
+
+    do
+    {
+        shuffle();
+
+        if (seeDeck)
+        {
+            choice = 0;
+            cout << deck << endl << endl;
+
+            do
+            {
+                cout << "Shuffle again?\n 1: yes\n 0: no\n\nChoice: ";
+
+                cin >> choice;
+
+                if (choice != '1' && choice != '0')
+                    cout << "INVALID CHOICE\n\n\n\n";
+            } while (choice != '1' && choice != '0');
+        }
+    } while (seeDeck && choice != '0');
+
+    //ADD PLAYTHROUGH
+    playGame();
+
+    winner(win);
+
+    if (win > 0)
+    {
+        cout << "YOU WIN!!!\nThe Game of War lasted " << rounds << " rounds!!\n\nYour final hand was:\n" << hand1 << endl;
+    }
+    else if (win < 0)
+    {
+        cout << "YOU LOST!!!\nThe Game of War lasted " << rounds << " rounds!!\n\nTheir final hand was:\n" << hand2 << endl;
+    }
+    else
+    {
+        cout << "The game never ended" << endl;
+    }
+
+    return true;
+}
+
 bool war::setHands()
 {
     //Defining variables
@@ -60,8 +164,6 @@ bool war::playGame()
     setHands();
 
     return iterateGame();
-    int tab;
-    cout << "hi";
 }
 
 bool war::iterateGame()
@@ -179,19 +281,4 @@ cards war::hand(bool player /*true for 1, false for 2*/)
     if (player)
         return hand1;
     return hand2;
-}
-
-bool warGame()
-{
-    int winner;
-
-    cout << "Welcome to War!" << endl << endl;
-
-    war game;
-
-    game.winner(winner);
-
-    cout << "Player " << winner << " won the war in " << game.numRounds() << " rounds!" << endl;
-
-    return false;
 }

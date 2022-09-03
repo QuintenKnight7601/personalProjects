@@ -1,5 +1,4 @@
 #include "framework.h"
-#include "../war/war.h"
 
 
 
@@ -26,9 +25,12 @@ int main() {
 
         cin >> choice;
 
+        cout << "\n\n\n\n\n\n\n\n\n" << endl;
+
+
         if (choice == '1')
         {
-            warGame();
+            startWar();
         }
 
 

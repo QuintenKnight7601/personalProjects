@@ -7,12 +7,12 @@
 
 const int DECK_SIZE = 52;
 
-class cards : protected vector<CARDS::_cards>
+class cards : protected vector<CARDS::_card>
 {
 
 
 public:
-    typedef CARDS::_cards card;
+    typedef CARDS::_card card;
 
     //Con/Deconstructors
     cards ( bool fill = false );
@@ -21,35 +21,52 @@ public:
     //Manipulation                    //Fill deck with missing cards
     bool reset ( );                     //Reset to default
     bool clear ( );                     //Clear deck
-    bool place (CARDS::_cards cardIn, int pos = 0, bool reverse = false );            //Insert card on front
-    CARDS::_cards draw ( int pos = 0, bool reverse = false );                       //Remove front item
+    bool place (CARDS::_card cardIn, int pos = 0, bool reverse = false );            //Insert card on front
+    CARDS::_card draw ( int pos = 0, bool reverse = false );                       //Remove front item
     bool shuffle ( );                   //Randomizes cards in deck, current iteration is biased
 
     //Information
-    const CARDS::_cards peek(int pos = 0, bool reverse = false);
-    const int seek (CARDS::_cards card, bool reverse = false );
+    const CARDS::_card peek(int pos = 0, bool reverse = false);
+    const int seek (CARDS::_card card, bool reverse = false );
     const bool empty();
-    const int size();
+    const int size() const;
 
     //Conversion
 
 
     //Operator
     const bool operator==( const cards rhs );
-    friend bool operator==( const CARDS::_cards lhs, const CARDS::_cards rhs );
-    friend bool operator!=( const CARDS::_cards lhs, const CARDS::_cards rhs );
+    friend ostream& operator<<( ostream& out, const cards& rhs);
+    friend bool operator==( const CARDS::_card lhs, const CARDS::_card rhs );
+    friend bool operator!=( const CARDS::_card lhs, const CARDS::_card rhs );
     
 
 protected:
 };
-bool operator==(const CARDS::_cards lhs, const CARDS::_cards rhs)
+
+inline ostream& operator<<(ostream& out, const cards& rhs)
+{
+    int size = rhs.size();
+
+    for (int i = 0; i < size; ++i)
+    {
+        out << rhs.at(i) << " ";
+
+        if ((i % 13) == 12)
+            out << endl;
+    }
+
+    return out;
+}
+
+inline bool operator==(const CARDS::_card lhs, const CARDS::_card rhs)
 {
     if (lhs.suit == rhs.suit && lhs.val == rhs.val)
         return true;
     return false;
 }
 
-bool operator!=(const CARDS::_cards lhs, const CARDS::_cards rhs)
+inline bool operator!=(const CARDS::_card lhs, const CARDS::_card rhs)
 {
     if (lhs.suit == rhs.suit && lhs.val == rhs.val)
         return false;
