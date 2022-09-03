@@ -22,7 +22,7 @@ bool cards::reset()
     if (clear())
     {
         //Fill with entire set of cards
-        for (int i = 0; i < 52; ++i)
+        for (int i = 0; i < DECK_SIZE; ++i)  
         {
             if (!place(tempCard.fromInt(i)))
                 return false;
@@ -120,11 +120,10 @@ bool cards::shuffle()
 {
     //Defining variables
     cards temp = *this;
-    bool track[52] = { false };
+    card tempCard;
+    vector<bool> track;
     int num = size();
-    int i = 0;
-    int to;
-    int numUsed = 0;
+    int i, n, to, numUsed = 0;
 
     srand(int(time(0)));
 
@@ -132,25 +131,18 @@ bool cards::shuffle()
     if (empty())
         return true;
 
+    track.resize(num);
+
     //Randomize cards for each card in deck
     for (i = 0; i < num; ++i)
     {
-        numUsed = 0;
-        to = rand() % (num - i);
-        for (int n = 0; n < to; ++n)
-        {
-            if (track[n+numUsed])
-            {
-                --n;
-                ++numUsed;
-            }
-        }
+        to = rand() % (num - int(i));
 
-        to += numUsed;
-
-        track[to] = true;
-        at(to) = temp.at(i);
+        tempCard = at(i);
+        at(i) = at(to);
+        at(to) = tempCard;
     }
+
 
     return true;
 }

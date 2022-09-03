@@ -16,7 +16,7 @@ public:
     bool playGame();
     bool iterateGame();
     bool playRound();
-    int compare(); //Positive if right hand side is greater, negative if left hand side is greater
+    int compare(); //Positive if discard 1 is greater, negative if discard 2 is greater
 
     //Information functions
     bool winner(int& player);

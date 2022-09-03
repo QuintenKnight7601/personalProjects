@@ -5,6 +5,8 @@
 #ifndef __CARDS__H__
 #define __CARDS__H__
 
+const int DECK_SIZE = 52;
+
 class cards : protected vector<CARDS::_cards>
 {
 
@@ -21,7 +23,7 @@ public:
     bool clear ( );                     //Clear deck
     bool place (CARDS::_cards cardIn, int pos = 0, bool reverse = false );            //Insert card on front
     CARDS::_cards draw ( int pos = 0, bool reverse = false );                       //Remove front item
-    bool shuffle ( );                   //Randomizes cards in deck
+    bool shuffle ( );                   //Randomizes cards in deck, current iteration is biased
 
     //Information
     const CARDS::_cards peek(int pos = 0, bool reverse = false);

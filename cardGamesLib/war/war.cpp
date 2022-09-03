@@ -27,7 +27,6 @@ bool war::setHands()
 {
     //Defining variables
     int size = deck.size();
-    cards tempDeck;
     card tempCard;
 
     //If the deck is empty, fill it
@@ -38,7 +37,6 @@ bool war::setHands()
 
     //Update deck size and temporary deck
     size = deck.size();
-    tempDeck = deck;
 
     //Iterate through the deck and move cards to hands
     for (int i = 0; i < size; ++i)
@@ -69,7 +67,7 @@ bool war::playGame()
 bool war::iterateGame()
 {
 
-    if (hand1.empty() || hand2.empty())
+    if (hand1.empty() || hand2.empty() || rounds > 3000)
         return true;
 
     if (!playRound())
@@ -108,21 +106,21 @@ bool war::playRound()
 
     if (dif > 0)
     {
-        while (!disc1.empty())
-            if (!hand1.place(disc1.draw(), 0))
-                return false;
         while (!disc2.empty())
             if (!hand1.place(disc2.draw(), 0))
+                return false;
+        while (!disc1.empty())
+            if (!hand1.place(disc1.draw(), 0))
                 return false;
 
         return true;
     }
 
-    while (!disc2.empty())
-        if (!hand2.place(disc2.draw(), 0, true))
-            return false;
     while (!disc1.empty())
         if (!hand2.place(disc1.draw(), 0, true))
+            return false;
+    while (!disc2.empty())
+        if (!hand2.place(disc2.draw(), 0, true))
             return false;
 
     return true;
@@ -193,7 +191,7 @@ bool warGame()
 
     game.winner(winner);
 
-    cout << "Player " << winner << " won the war!" << endl;
+    cout << "Player " << winner << " won the war in " << game.numRounds() << " rounds!" << endl;
 
     return false;
 }
