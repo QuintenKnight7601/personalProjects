@@ -1,14 +1,12 @@
 #include "framework.h"
 #include "war.h"
 
-war::war( bool start )
+war::war( bool set )
 {
-    deck.reset();
-    deck.shuffle();
-
-    if (start)
+    if (set)
     {
-        playGame();
+        deck.reset();
+        deck.shuffle();
     }
 }
 
@@ -50,6 +48,17 @@ bool war::manual()
         else if (choice == '3')
         {
             cout << "Feature still in development" << endl;
+            ifstream fin("deck.txt");
+            if (!fin.is_open())
+            {
+                cout << "Failed to open file" << endl;
+            }
+            else
+            {
+                cout << "File opened successfully" << endl;
+                fin >> deck;
+                cout << deck;
+            }
         }
         else
         {

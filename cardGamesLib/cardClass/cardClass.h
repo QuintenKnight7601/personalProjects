@@ -34,9 +34,10 @@ public:
     //Conversion
 
 
-    //Operator
+    //Operator Overloads
     const bool operator==( const cards rhs );
     friend ostream& operator<<( ostream& out, const cards& rhs);
+    friend ifstream& operator>>(ifstream& in, cards& rhs);
     friend bool operator==( const CARDS::_card lhs, const CARDS::_card rhs );
     friend bool operator!=( const CARDS::_card lhs, const CARDS::_card rhs );
     
@@ -57,6 +58,21 @@ inline ostream& operator<<(ostream& out, const cards& rhs)
     }
 
     return out;
+}
+
+inline ifstream& operator>>(ifstream& in, cards& rhs)
+{
+    //Defining variables
+    int tempInt;
+    CARDS::_card tempCard;
+
+    //While cards can still be read from the file
+    while (in >> tempInt)
+    {
+        rhs.place(tempCard.fromInt(tempInt), 0, true);
+    }
+
+    return in;
 }
 
 inline bool operator==(const CARDS::_card lhs, const CARDS::_card rhs)
