@@ -28,6 +28,7 @@ bool war::manual()
     int win;
     char choice;
     bool seeDeck = false;
+    string filename;
 
     //Deck builder loop
     do
@@ -43,7 +44,7 @@ bool war::manual()
         //If auto fill was selected
         if (choice == '1')
         {
-            reset();
+            deck.reset();
         }
         //If manual fill was selected
         else if (choice == '2')
@@ -55,15 +56,30 @@ bool war::manual()
         else if (choice == '3')
         {
             //Output beta message
-            cout << "Feature still in development" << endl;
+            cout << "Feature still in development\n\n\n" << endl;
+
+            //Prompt for filename
+            cout << "Filename: ";
+            cin >> filename;
 
             //Open file   NEEDS TO BE CHANGED!!!!!
-            ifstream fin("deck.txt");
+            ifstream fin(filename);
 
             //Check that file was opened correctly
             if (!fin.is_open())
             {
-                cout << "Failed to open file" << endl;
+                //Output error text
+                cout << "Could not find file, opening default deck file.\n\n\n" << endl;
+                
+                //Open default deck file
+                fin.open("default.deck");
+                
+                //Check that file was opened correctly
+                if (!fin.is_open())
+                {
+                    cout << "Failed to open file" << endl;
+                    return false;
+                }
             }
 
             //Output successfull message and read into deck
@@ -205,7 +221,7 @@ bool war::playGame()
 bool war::iterateGame()
 {
 
-    if (hand1.empty() || hand2.empty() || rounds > 3000)
+    if (hand1.empty() || hand2.empty())
         return true;
 
     if (!playRound())
@@ -233,16 +249,40 @@ bool war::playRound()
         //If tied then draw three and repeat
         if (dif == 0)
         {
-            disc1.place(hand1.draw());
-            disc2.place(hand2.draw());
-            disc1.place(hand1.draw());
-            disc2.place(hand2.draw());
-            disc1.place(hand1.draw());
-            disc2.place(hand2.draw());
+            for (int i = 0; !hand1.empty() && !hand2.empty() && i < 3; ++i)
+            {
+                disc1.place(hand1.draw());
+                disc2.place(hand2.draw());
+            }
         }
-    } while (dif == 0);
+
+    } while (dif == 0 && !hand1.empty() && !hand2.empty());
 
     if (dif > 0)
+    {
+        while (!disc2.empty())
+            if (!hand1.place(disc2.draw(), 0, true))
+                return false;
+        while (!disc1.empty())
+            if (!hand1.place(disc1.draw(), 0, true))
+                return false;
+
+        return true;
+    }
+    else if (dif < 0)
+    {
+        while (!disc1.empty())
+            if (!hand2.place(disc1.draw(), 0, true))
+                return false;
+        while (!disc2.empty())
+            if (!hand2.place(disc2.draw(), 0, true))
+                return false;
+
+        return true;
+    }
+
+    //If a hand ran out during a tie
+    if (hand1.empty())
     {
         while (!disc2.empty())
             if (!hand1.place(disc2.draw(), 0, true))
@@ -262,7 +302,6 @@ bool war::playRound()
             return false;
 
     return true;
-
 }
 
 int war::compare() 
