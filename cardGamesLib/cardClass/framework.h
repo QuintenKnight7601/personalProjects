@@ -22,7 +22,7 @@ namespace CARDS
         int val; //value from 1 to 13, 1 being ace, and 13 being king
         suits suit;
 
-        inline _card() {};
+        inline _card() { val = 0; suit = suits::club; };
         inline _card(int val) {
             fromInt(val);
         }
@@ -62,10 +62,10 @@ namespace CARDS
     inline ifstream& operator>> (ifstream& in, _card& rhs) {
         //Defining variables
         int tempInt;
-        char tempChar;
         
         //Read in values
-        rhs.fromInt(in.get());
+        in >> tempInt;
+        rhs.fromInt(tempInt);
 
         return in;
     }

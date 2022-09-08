@@ -183,7 +183,9 @@ const int cards::seek(CARDS::_card card, bool reverse)
 
 const bool cards::empty()
 {
-    return vector::empty();
+    if (size() == 0)
+        return true;
+    return false;
 }
 
 const int cards::size() const

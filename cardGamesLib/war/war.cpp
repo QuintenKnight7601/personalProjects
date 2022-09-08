@@ -66,12 +66,14 @@ bool war::manual()
         }
 
         cout << "\n\n\n\n\n\n\n\n\n\n\n" << endl;
-    } while (choice != '1' /* && choice != '2' && choice != '3' */);
+    } while (choice != '1' /* && choice != '2'*/ && choice != '3' );
 
     choice = 0;
 
     do
     {
+        cin.clear();
+
         cout << "See deck order?\n 1: yes\n 2: no\n\nChoice: ";
 
         cin >> choice;
@@ -96,7 +98,6 @@ bool war::manual()
 
     do
     {
-        shuffle();
 
         if (seeDeck)
         {
