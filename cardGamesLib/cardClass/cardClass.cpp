@@ -1,6 +1,7 @@
 #include "framework.h"
 #include "cardClass.h"
 
+
 cards::cards( bool fill )
 {
     if (fill)

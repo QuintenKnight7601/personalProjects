@@ -24,12 +24,16 @@ war::~war()
 
 bool war::manual()
 {
+    //Defining variables
     int win;
     char choice;
     bool seeDeck = false;
+    string filename;
 
+    //Deck builder loop
     do
     {
+        //Output options and prompt for choice
         cout << "Choose an option:\n"
             << " 1: auto fill deck\n"
             << " 2: manual fill deck\n"
@@ -37,29 +41,52 @@ bool war::manual()
 
         cin >> choice;
 
+        //If auto fill was selected
         if (choice == '1')
         {
-            reset();
+            deck.reset();
         }
+        //If manual fill was selected
         else if (choice == '2')
         {
+            //Output beta message
             cout << "Feature still in development" << endl;
         }
+        //If by file was selected
         else if (choice == '3')
         {
-            cout << "Feature still in development" << endl;
-            ifstream fin("deck.txt");
+            //Output beta message
+            cout << "Feature still in development\n\n\n" << endl;
+
+            //Prompt for filename
+            cout << "Filename: ";
+            cin >> filename;
+
+            //Open file   NEEDS TO BE CHANGED!!!!!
+            ifstream fin(filename);
+
+            //Check that file was opened correctly
             if (!fin.is_open())
             {
-                cout << "Failed to open file" << endl;
+                //Output error text
+                cout << "Could not find file, opening default deck file.\n\n\n" << endl;
+                
+                //Open default deck file
+                fin.open("default.deck");
+                
+                //Check that file was opened correctly
+                if (!fin.is_open())
+                {
+                    cout << "Failed to open file" << endl;
+                    return false;
+                }
             }
-            else
-            {
-                cout << "File opened successfully" << endl;
-                fin >> deck;
-                cout << deck;
-            }
+
+            //Output successfull message and read into deck
+            cout << "File opened successfully" << endl;
+            fin >> deck;
         }
+        //If an invalid choice was made
         else
         {
             cout << "INVALID CHOICE" << endl;
@@ -70,22 +97,27 @@ bool war::manual()
 
     choice = 0;
 
-    do
+    do //No cheating loop
     {
+        //Clear any prior inputs
         cin.clear();
 
+        //Output prompt
         cout << "See deck order?\n 1: yes\n 2: no\n\nChoice: ";
 
         cin >> choice;
 
+        //Cheats on (can see deck)
         if (choice == '1')
         {
             seeDeck = true;
         }
+        //Cheats off (can not see deck)
         else if (choice == '2')
         {
             seeDeck = false;
         }
+        //Output invalid choice and repeate
         else
         {
             cout << "INVALID CHOICE" << endl;
@@ -96,39 +128,49 @@ bool war::manual()
 
     choice = 0;
 
-    do
+    do //Shuffle loop
     {
+        choice = 0;
 
+        //If cheats are on output deck
         if (seeDeck)
         {
-            choice = 0;
             cout << deck << endl << endl;
 
-            do
-            {
-                cout << "Shuffle again?\n 1: yes\n 0: no\n\nChoice: ";
-
-                cin >> choice;
-
-                if (choice != '1' && choice != '0')
-                    cout << "INVALID CHOICE\n\n\n\n";
-            } while (choice != '1' && choice != '0');
         }
+        do//Prompt for deck shuffle loop
+        {
+            cout << "Shuffle deck? (will repeat until 0(no) is chosen)\n 1: yes\n 0: no\n\nChoice: ";
+
+            cin >> choice;
+
+            //If an invalid choice was made repeat
+            if (choice != '1' && choice != '0')
+                cout << "INVALID CHOICE\n\n\n\n";
+        } while (choice != '1' && choice != '0');
+        //If shuffle was chosen
+        if (choice == '1')
+            deck.shuffle();
+
     } while (seeDeck && choice != '0');
 
-    //ADD PLAYTHROUGH
+    //play the game
     playGame();
 
+    //check who won
     winner(win);
 
-    if (win > 0)
+    //If player won
+    if (win == 1)
     {
         cout << "YOU WIN!!!\nThe Game of War lasted " << rounds << " rounds!!\n\nYour final hand was:\n" << hand1 << endl;
     }
-    else if (win < 0)
+    //If bot won
+    else if (win == 2)
     {
         cout << "YOU LOST!!!\nThe Game of War lasted " << rounds << " rounds!!\n\nTheir final hand was:\n" << hand2 << endl;
     }
+    //If game timed out
     else
     {
         cout << "The game never ended" << endl;
@@ -179,7 +221,7 @@ bool war::playGame()
 bool war::iterateGame()
 {
 
-    if (hand1.empty() || hand2.empty() || rounds > 3000)
+    if (hand1.empty() || hand2.empty())
         return true;
 
     if (!playRound())
@@ -207,22 +249,46 @@ bool war::playRound()
         //If tied then draw three and repeat
         if (dif == 0)
         {
-            disc1.place(hand1.draw());
-            disc2.place(hand2.draw());
-            disc1.place(hand1.draw());
-            disc2.place(hand2.draw());
-            disc1.place(hand1.draw());
-            disc2.place(hand2.draw());
+            for (int i = 0; !hand1.empty() && !hand2.empty() && i < 3; ++i)
+            {
+                disc1.place(hand1.draw());
+                disc2.place(hand2.draw());
+            }
         }
-    } while (dif == 0);
+
+    } while (dif == 0 && !hand1.empty() && !hand2.empty());
 
     if (dif > 0)
     {
         while (!disc2.empty())
-            if (!hand1.place(disc2.draw(), 0))
+            if (!hand1.place(disc2.draw(), 0, true))
                 return false;
         while (!disc1.empty())
-            if (!hand1.place(disc1.draw(), 0))
+            if (!hand1.place(disc1.draw(), 0, true))
+                return false;
+
+        return true;
+    }
+    else if (dif < 0)
+    {
+        while (!disc1.empty())
+            if (!hand2.place(disc1.draw(), 0, true))
+                return false;
+        while (!disc2.empty())
+            if (!hand2.place(disc2.draw(), 0, true))
+                return false;
+
+        return true;
+    }
+
+    //If a hand ran out during a tie
+    if (hand1.empty())
+    {
+        while (!disc2.empty())
+            if (!hand1.place(disc2.draw(), 0, true))
+                return false;
+        while (!disc1.empty())
+            if (!hand1.place(disc1.draw(), 0, true))
                 return false;
 
         return true;
@@ -236,7 +302,6 @@ bool war::playRound()
             return false;
 
     return true;
-
 }
 
 int war::compare() 
@@ -261,8 +326,10 @@ bool war::winner(int& player)
 {
     //If both hands are empty return false
     if (hand1.empty() && hand2.empty())
+    {
+        player = 0;
         return false;
-
+    }
     //If hand 1 is empty player 2 wins
     if (hand1.empty())
     {
@@ -277,6 +344,7 @@ bool war::winner(int& player)
     }
 
     //No hands were empty, return false
+    player = 0;
     return false;
 }
 
