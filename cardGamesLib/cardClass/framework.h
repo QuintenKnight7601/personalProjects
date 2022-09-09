@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef __CARDSFRAMEWORK__H__
-#define __CARDSFRAMEWORK__H__
+#ifndef __CARDFRAMEWORK__H__
+#define __CARDFRAMEWORK__H__
 
 #include <iostream>
 #include <iomanip>
@@ -10,90 +10,93 @@
 
 using namespace std;
 
-namespace CARDS
+#ifndef __CARD__
+#define __CARD__
+
+namespace CARD
 {
+    //Defining variables
     enum class suits { club, diamond, heart, spade }; //Lowest to highest value
 
-    suits fromInt(const int val);
-    suits fromChar(const char val);
-
-    struct _card
+    //converting to a suit
+    inline suits fromInt(const int val) 
     {
+        return static_cast<suits>(val);
+    }
+    inline suits fromChar(const char val)
+    {
+        if (val == toupper('C'))
+            return suits::club;
+        if (val == toupper('D'))
+            return suits::diamond;
+        if (val == toupper('H'))
+            return suits::heart;
+        if (val == toupper('S'))
+            return suits::spade;
+        return suits();
+    }
+    
+    //card structure
+    struct _card
+    {   //Defining variables
         int val; //value from 1 to 13, 1 being ace, and 13 being king
         suits suit;
 
-        inline _card() { val = 0; suit = suits::club; };
-        inline _card(int val) {
-            fromInt(val);
+        //constructors
+        inline _card(int value = 0)
+        {
+            val = (value % 52) % 13;
+            suit = static_cast<suits>((value % 52) / 13);
+        }
+        inline _card(int value, suits suitVal)
+        {
+            val = value;
+            suit = suitVal;
         }
 
-        //Function to convert from int to _cards
-        inline _card fromInt(const int input) {
-
+        //conversions
+        inline _card fromInt(const int input)
+        {
             //Calculate card value and suit from input number and return
-            val = (input%52) % 13;
-            suit = CARDS::fromInt((input%52) / 13);
+            val = (input % 52) % 13;
+            suit = CARD::fromInt((input % 52) / 13);
             return *this;
         }
+        inline operator int() const
+        {
+            return (val + (static_cast<int>(suit) * 13));
+        }
 
+        //Input/Output
+        inline friend ostream& operator<<(ostream& out, const _card& rhs) {
+            //Output card value
+            out << setfill(' ') << setw(2) << rhs.val;
 
-        friend ostream& operator<<(ostream& out, const _card& rhs);
-        friend ifstream& operator>>(ifstream& in, _card& rhs);
+            //Ouput suit
+            if (rhs.suit == suits::club)
+                out << "C";
+            else if (rhs.suit == suits::diamond)
+                out << "D";
+            else if (rhs.suit == suits::heart)
+                out << "H";
+            else if (rhs.suit == suits::spade)
+                out << "S";
+
+            return out;
+        }
+        inline friend istream& operator>>(istream& in, _card& rhs) {
+            //Defining variables
+            int tempInt;
+
+            //Read in values
+            in >> tempInt;
+            rhs.fromInt(tempInt);
+
+            return in;
+        }
     };
-
-
-    inline ostream& operator<< (ostream& out, const _card& rhs) {
-        //Output card value
-        out << setfill(' ') << setw(2) << rhs.val;
-
-        //Ouput suit
-        if (rhs.suit == suits::club)
-            out << "C";
-        else if (rhs.suit == suits::diamond)
-            out << "D";
-        else if (rhs.suit == suits::heart)
-            out << "H";
-        else if (rhs.suit == suits::spade)
-            out << "S";
-
-        return out;
-    }
-
-    inline ifstream& operator>> (ifstream& in, _card& rhs) {
-        //Defining variables
-        int tempInt;
-        
-        //Read in values
-        in >> tempInt;
-        rhs.fromInt(tempInt);
-
-        return in;
-    }
-
-    inline suits fromInt(const int input)  //Converts int to enum value
-    {
-        if (input == 0)
-            return suits::club;
-        if (input == 1)
-            return suits::diamond;
-        if (input == 2)
-            return suits::heart;
-        if (input == 3)
-            return suits::spade;
-        return suits();
-    }
-
-    inline suits fromChar(const char input) {
-        if (toupper(input) == 'C')
-            return suits::club;
-        if (toupper(input) == 'D')
-            return suits::diamond;
-        if (toupper(input) == 'H')
-            return suits::heart;
-        if (toupper(input) == 'S')
-            return suits::spade;
-        return suits();
-    }
 }
 
+
+#endif
 #endif

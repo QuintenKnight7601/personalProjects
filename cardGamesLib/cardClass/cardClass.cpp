@@ -43,7 +43,7 @@ bool cards::clear()
     return true;
 }
 
-bool cards::place(CARDS::_card cardIn, int pos, bool reverse)
+bool cards::place(CARD::_card cardIn, int pos, bool reverse)
 {
     //Defining variables
     int initSize = size();
@@ -77,15 +77,15 @@ bool cards::place(CARDS::_card cardIn, int pos, bool reverse)
     return true;
 }
 
-CARDS::_card cards::draw(int pos, bool reverse)
+CARD::_card cards::draw(int pos, bool reverse)
 {
     //Defining variables
     int initSize = size();
     int cardPos = pos;
-    CARDS::_card tempCard;
+    CARD::_card tempCard;
 
     if (empty())
-        return CARDS::_card();
+        return CARD::_card();
 
     if (pos > size())
     {
@@ -148,12 +148,12 @@ bool cards::shuffle()
 }
 
 
-const CARDS::_card cards::peek(int pos, bool reverse)
+const CARD::_card cards::peek(int pos, bool reverse)
 {
     int cardPos = pos;
 
     if (pos > size())
-        return CARDS::_card();
+        return CARD::_card();
 
     if (reverse)
         cardPos = size() - pos;
@@ -161,7 +161,7 @@ const CARDS::_card cards::peek(int pos, bool reverse)
     return at(cardPos);
 }
 
-const int cards::seek(CARDS::_card card, bool reverse)
+const int cards::seek(CARD::_card card, bool reverse)
 {
     int deckSize = size();
 
