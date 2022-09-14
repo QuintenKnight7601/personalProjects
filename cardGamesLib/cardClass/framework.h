@@ -59,7 +59,7 @@ namespace CARD
         {
             //Calculate card value and suit from input number and return
             val = (input % 52) % 13;
-            suit = CARD::fromInt((input % 52) / 13);
+            suit = static_cast<suits>((input % 52) / 13);
             return *this;
         }
         inline operator int() const
