@@ -5,6 +5,8 @@
 
 #include "../war/war.h"
 #include "../war/war.cpp"
+#include "../solitaire/solitaire.h"
+#include "../solitaire/solitaire.cpp"
 
 using namespace std;
 

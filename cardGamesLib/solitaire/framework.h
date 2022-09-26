@@ -5,7 +5,7 @@
 
 #include "../cardClass/cardClass.h"
 #include "../cardClass/cardClass.cpp"
-
+#include <stack>
 
 using namespace std;
 

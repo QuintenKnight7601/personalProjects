@@ -18,7 +18,7 @@ int main() {
         //Output games
         cout << "Games: (enter game number)\n"
             << " 1: Game of War\n"
-            << " 2: \n"
+            << " 2: Solitaire\n"
             << " 3: \n"
             << "\n"
             << " 0: Quit\n\nChoice:" << endl;
@@ -32,7 +32,10 @@ int main() {
         {
             startWar();
         }
-
+        if (choice == '2')
+        {
+            startSolitaire();
+        }
 
         else if (choice == '0')
         {

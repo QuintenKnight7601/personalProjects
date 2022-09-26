@@ -24,7 +24,7 @@ public:
     int numRounds();
     cards hand(bool player /*true for player 1, false for player 2*/);
 
-    inline friend bool startWar();
+    friend bool startWar();
 
 protected:
     cards deck, hand1, hand2, disc1, disc2;
