@@ -161,7 +161,7 @@ public:
     inline const_reverse_iterator crend() { return vector::crend(); }
     
     //Capacity
-    inline int size() { return vector::size(); }
+    inline size_t size() { return vector::size(); }
     inline bool empty() { return vector::empty(); }
 
     //Element Access

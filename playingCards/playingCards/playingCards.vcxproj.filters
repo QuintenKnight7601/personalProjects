@@ -21,26 +21,12 @@
     <ClInclude Include="pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-<<<<<<< HEAD:cards/cards/cards.vcxproj.filters
-    <ClInclude Include="cards.h">
-=======
-    <ClInclude Include="playingCards.h">
->>>>>>> 8ca7eaeef33735a8e543467e0ca4771176b0ce4b:playingCards/playingCards.vcxproj.filters
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="pch.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-<<<<<<< HEAD:cards/cards/cards.vcxproj.filters
-    <ClCompile Include="cards.cpp">
-=======
-    <ClCompile Include="playingCards.cpp">
->>>>>>> 8ca7eaeef33735a8e543467e0ca4771176b0ce4b:playingCards/playingCards.vcxproj.filters
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
