@@ -2,7 +2,7 @@
 #include "framework.h"
 
 class cards :
-    public vector
+    public vector<card>
 {
 };
 
