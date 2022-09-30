@@ -107,9 +107,23 @@ namespace card_ {
         faces_::faceList face;
         suits_::suitList suit;
 
-        inline cardStruct fromInt(int n) {
+
+        inline bool fromInt(int n) {
+            if (n > 51)
+                return false;
             face = faces_::fromInt(n % 13);
             suit = suits_::fromInt(n / 13);
+            return true;
+        }
+
+        inline bool operator==(cardStruct rhs) {
+            if (face == rhs.face)
+                if (suit == rhs.suit)
+                    return true;
+            return false;
+        }
+        inline bool operator!=(cardStruct rhs) {
+            return !(*this == rhs);
         }
     };
 }
@@ -161,14 +175,14 @@ public:
     inline const_reverse_iterator crend() { return vector::crend(); }
     
     //Capacity
-    inline size_t size() { return vector::size(); }
-    inline bool empty() { return vector::empty(); }
+    inline size_t size() const { return vector::size(); }
+    inline bool empty() const { return vector::empty(); }
 
     //Element Access
-    inline card_::cardStruct operator[](size_type i) { return vector::operator[](i); }
-    inline card_::cardStruct at(size_type i) { return vector::at(i); }
-    inline card_::cardStruct front() { return vector::front(); }
-    inline card_::cardStruct back() { return vector::back(); }
+    inline card_::cardStruct operator[](size_type i) const { return vector::operator[](i); }
+    inline card_::cardStruct at(size_type i) const { return vector::at(i); }
+    inline card_::cardStruct front() const { return vector::front(); }
+    inline card_::cardStruct back() const { return vector::back(); }
 
     //Modifiers
     inline void assign(int n, const card_::cardStruct& val) { vector::assign(n, val); }
@@ -183,7 +197,7 @@ public:
     inline void swap(playingCards& deck) { vector::swap(deck); }
     inline void clear() { vector::clear(); }
     inline iterator emplace(const_iterator pos, card_::cardStruct&& card) { vector::emplace(pos, card); }
-    inline void emplace_back(card_::cardStruct&& card) { vector::emplace_back(card); }
+    inline void emplace_back(card_::cardStruct& card) { vector::emplace_back(card); }
 
     //Relational Operators
     friend bool operator== (const playingCards& lhs, const playingCards& rhs);
@@ -192,16 +206,58 @@ public:
     friend bool operator<= (const playingCards& lhs, const playingCards& rhs);
     friend bool operator> (const playingCards& lhs, const playingCards& rhs);
     friend bool operator>= (const playingCards& lhs, const playingCards& rhs);
+    
 
     //PlayingCard specific
-    inline bool shuffle() { 
+    inline void shuffle() { 
         random_device rd;
         auto rng = default_random_engine{rd()}; 
         std::shuffle(begin(), end(), rng); 
     }
-    bool set();
-
-
+    inline bool set() {
+        card_::cardStruct temp;
+        if (!empty())
+            return false;
+        for (int i = 0; i < 52; ++i){
+            temp.fromInt(i);
+            emplace_back(temp);
+        }
+        return true;
+    }
 };
+
+bool operator==(const playingCards& lhs, const playingCards& rhs)
+{
+    int size = lhs.size();
+    if (size != rhs.size())
+        return false;
+
+    for (int i = 0; i < size; ++i) {
+        if (lhs.at(i) != rhs.at(i))
+            return false;
+    }
+
+    return true;
+}
+
+bool operator!=(const playingCards& lhs, const playingCards& rhs) {
+    return !(lhs == rhs);
+}
+
+bool operator<(const playingCards& lhs, const playingCards& rhs) {
+    return vector<card_::cardStruct>::operator<(lhs, rhs);
+}
+
+bool operator<=(const playingCards& lhs, const playingCards& rhs) {
+
+}
+
+bool operator>(const playingCards& lhs, const playingCards& rhs) {
+
+}
+
+bool operator>=(const playingCards& lhs, const playingCards& rhs) {
+
+}
 
 #endif
