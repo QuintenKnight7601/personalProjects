@@ -1,6 +1,0 @@
-#include "MyMedic.h"
-
-main ( )
-{
-
-}

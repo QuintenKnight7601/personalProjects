@@ -116,15 +116,6 @@ namespace card_ {
             return true;
         }
 
-        inline int toInt()
-        {
-            int sum = 0;
-            sum += static_cast<int>(face);
-            sum += static_cast<int>(suit) * 13;
-
-            return sum;
-        }
-
         inline bool operator==(cardStruct rhs) {
             if (face == rhs.face)
                 if (suit == rhs.suit)
@@ -174,120 +165,39 @@ public:
     ~playingCards();
 
     //Iterators
-    inline iterator begin() 
-    { 
-        return vector::begin(); 
-    }
-    inline iterator end() 
-    { 
-        return vector::end(); 
-    }
-    inline reverse_iterator rbegin() 
-    { 
-        return vector::rbegin(); 
-    }
-    inline reverse_iterator rend() 
-    { 
-        return vector::rend(); 
-    }
-    inline const_iterator cbegin() 
-    { 
-        return vector::cbegin(); 
-    }
-    inline const_iterator cend() 
-    { 
-        return vector::cend(); 
-    }
-    inline const_reverse_iterator crbegin() 
-    {
-        return vector::crbegin(); 
-    }
-    inline const_reverse_iterator crend() 
-    { 
-        return vector::crend();
-    }
+    inline iterator begin() { return vector::begin(); }
+    inline iterator end() { return vector::end(); }
+    inline reverse_iterator rbegin() { return vector::rbegin(); }
+    inline reverse_iterator rend() { return vector::rend(); }
+    inline const_iterator cbegin() { return vector::cbegin(); }
+    inline const_iterator cend() { return vector::cend(); }
+    inline const_reverse_iterator crbegin() { return vector::crbegin(); }
+    inline const_reverse_iterator crend() { return vector::crend(); }
     
     //Capacity
-    inline size_t size() const 
-    {
-        return vector::size(); 
-    }
-    inline bool empty() const 
-    { 
-        return vector::empty(); 
-    }
+    inline size_t size() const { return vector::size(); }
+    inline bool empty() const { return vector::empty(); }
 
     //Element Access
-    inline card_::cardStruct operator[](size_type i) const 
-    { 
-        return vector::operator[](i); 
-    }
-    inline card_::cardStruct at(size_type i) const 
-    { 
-        return vector::at(i); 
-    }
-    inline card_::cardStruct front() const 
-    { 
-        return vector::front(); 
-    }
-    inline card_::cardStruct back() const 
-    { 
-        return vector::back();
-    }
+    inline card_::cardStruct operator[](size_type i) const { return vector::operator[](i); }
+    inline card_::cardStruct at(size_type i) const { return vector::at(i); }
+    inline card_::cardStruct front() const { return vector::front(); }
+    inline card_::cardStruct back() const { return vector::back(); }
 
     //Modifiers
-    inline void assign(int n, const card_::cardStruct& val) 
-    { 
-        vector::assign(n, val); 
-    }
-    inline void assign(iterator it1, iterator it2) 
-    { 
-        vector::assign(it1, it2); 
-    }
-    inline void push_back(const card_::cardStruct& card) 
-    { 
-        vector::push_back(card); 
-    }
-    inline void pop_back() 
-    { 
-        vector::pop_back(); 
-    }
-    inline void insert(iterator pos, const card_::cardStruct& card) 
-    { 
-        vector::insert(pos, card); 
-    }
-    inline void insert(iterator pos, size_type n, const card_::cardStruct& card) 
-    { 
-        vector::insert(pos, n, card); 
-    }
-    inline void insert(iterator pos, iterator from, iterator to) 
-    { 
-        vector::insert(pos, from, to); 
-    }
-    inline iterator erase(iterator pos) 
-    { 
-        vector::erase(pos); 
-    }
-    inline iterator erase(iterator from, iterator to) 
-    { 
-        vector::erase(from, to); 
-    }
-    inline void swap(playingCards& deck) 
-    { 
-        vector::swap(deck); 
-    }
-    inline void clear() 
-    { 
-        vector::clear(); 
-    }
-    inline iterator emplace(const_iterator pos, card_::cardStruct&& card) 
-    { 
-        vector::emplace(pos, card); 
-    }
-    inline void emplace_back(card_::cardStruct& card) 
-    { 
-        vector::emplace_back(card); 
-    }
+    inline void assign(int n, const card_::cardStruct& val) { vector::assign(n, val); }
+    inline void assign(iterator it1, iterator it2) { vector::assign(it1, it2); }
+    inline void push_back(const card_::cardStruct& card) { vector::push_back(card); }
+    inline void pop_back() { vector::pop_back(); }
+    inline void insert(iterator pos, const card_::cardStruct& card) { vector::insert(pos, card); }
+    inline void insert(iterator pos, size_type n, const card_::cardStruct& card) { vector::insert(pos, n, card); }
+    inline void insert(iterator pos, iterator from, iterator to) { vector::insert(pos, from, to); }
+    inline iterator erase(iterator pos) { vector::erase(pos); }
+    inline iterator erase(iterator from, iterator to) { vector::erase(from, to); }
+    inline void swap(playingCards& deck) { vector::swap(deck); }
+    inline void clear() { vector::clear(); }
+    inline iterator emplace(const_iterator pos, card_::cardStruct&& card) { vector::emplace(pos, card); }
+    inline void emplace_back(card_::cardStruct& card) { vector::emplace_back(card); }
 
     //Relational Operators
     friend bool operator== (const playingCards& lhs, const playingCards& rhs);
@@ -335,30 +245,19 @@ bool operator!=(const playingCards& lhs, const playingCards& rhs) {
 }
 
 bool operator<(const playingCards& lhs, const playingCards& rhs) {
-    //Defining variables
-    int size = lhs.size();
-    int lhSum = 0, rhSum = 0;
-
-    for (int i = 0; i < size; ++i)
-        lhSum += lhs[i].toInt();
-
-    size = rhs.size();
-    for (int i = 0; i < size; ++i)
-        rhSum += rhs[i].toInt();
-
-    return lhSum < rhSum;
+    return vector<card_::cardStruct>::operator<(lhs, rhs);
 }
 
 bool operator<=(const playingCards& lhs, const playingCards& rhs) {
-    return !(lhs > rhs);
+
 }
 
 bool operator>(const playingCards& lhs, const playingCards& rhs) {
-    return (rhs < lhs);
+
 }
 
 bool operator>=(const playingCards& lhs, const playingCards& rhs) {
-    return !(lhs < rhs);
+
 }
 
 #endif
