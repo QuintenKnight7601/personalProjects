@@ -3,6 +3,8 @@
 #include <vector>
 #include <algorithm>
 #include <random>
+#include <iostream>
+#include <iomanip>
 
 using namespace std;
 

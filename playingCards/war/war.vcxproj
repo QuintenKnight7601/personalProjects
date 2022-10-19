@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{a5e4439b-def5-47ab-a3e5-41cfa7f73e16}</ProjectGuid>
-    <RootNamespace>cardClass</RootNamespace>
+    <ProjectGuid>{06b4063f-335d-4405-a341-fcddf1053148}</ProjectGuid>
+    <RootNamespace>war</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -120,8 +120,6 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\101059445\source\repos\personalProjects\cardGamesLib\Dependancies;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>playingCards.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -141,11 +139,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="cardClass.cpp" />
+    <ClInclude Include="framework.h" />
+    <ClInclude Include="war.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="cardClass.h" />
-    <ClInclude Include="framework.h" />
+    <ClCompile Include="war.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\playingCards\playingCards.vcxproj">
+      <Project>{03e1ecf5-d4db-401c-a8b1-6b0c0d79e8a1}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
